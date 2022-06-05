@@ -72,4 +72,12 @@ References:
 * [DragonRuby Docs: Coordinate System and Virtual Canvas](http://docs.dragonruby.org/#---coordinate-system-and-virtual-canvas)
 
 ### Edit-Test-Loop
+Development in DR is easy:  Make an edit, save it, and watch your project reload with your change in place.
+
+Let's make a change and see it in action.
+* Locate the line `args.outputs.labels  << [640, 500, 'Hello World!', 5, 1]`
+* Change `'Hello World!'` to `'Hello DragonRuby!'`
+* Save your file.
+* Your running project will reload and you'll see your changed greeting:
+  ![Dragon Ruby Hello](../tutorial/DRGTK_HelloDR.png?raw=true "Hello DragonRuby")
 
