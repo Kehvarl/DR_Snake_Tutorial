@@ -81,3 +81,4 @@ Let's make a change and see it in action.
 * Your running project will reload and you'll see your changed greeting:
   ![Dragon Ruby Hello](../tutorial/DRGTK_HelloDR.png?raw=true "Hello DragonRuby")
 
+If you've reached this point with me, then celebrate your success!  Next up we'll start making a game using DragonRuby.
