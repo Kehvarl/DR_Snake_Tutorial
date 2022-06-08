@@ -1,12 +1,12 @@
 # Part 1 - Drawing The Background
 
-## The Blank Playfield
+## The Blank Play Field
 Before anything else, we will make the background a solid color.  In this case: black.
 * Make sure your DragonRuby project is loaded.
 * Open your `main.rb` file.
 * Delete the contents of the `tick` function
 * Add a `solid` output to draw a black box filling the entire screen
-  * A minimal Solid array defition: `[ X, Y, W, H, R, G, B ]`
+  * A minimal Solid array definition: `[ X, Y, W, H, R, G, B ]`
       * `X`  X position of the bottom-left corner of the box
       * `Y`  Y position of the bottom-left corner of the box
       * `W`  Width of the box
@@ -31,8 +31,8 @@ References
 * [DragonRuby Docs: Rendering Outputs](http://docs.dragonruby.org/#---args-outputs-)
 * [DragonRuby Docs: Rendering a solid using an Array](http://docs.dragonruby.org/#---rendering-a-solid-using-an-array)
 
-** Drawing on our playfield
-Before we move into all the layout, let's get some pixels on that playfield to make it look a little nicer.
+** Drawing on our play field
+Before we move into all the layout, let's get some pixels on that play field to make it look a little nicer.
 
 main.rb
 ```ruby
@@ -53,7 +53,7 @@ def tick args
   args.outputs.solids  << [670, 360, 10, 10, 0, 255, 255]
 end
 ```
-![Dragon Ruby Playfield](../tutorial/DRGTK_Playfield_2.png?raw=true "Some dots")
+![Dragon Ruby Play Field](../tutorial/DRGTK_Playfield_2.png?raw=true "Some dots")
 Here we have a series of blocks of slightly different colors.
 
 Drawing all these squares one by one is a bit of a pain, and won't help us animate them.  So let's store what we want to draw in an array, and draw everything in that array
@@ -88,7 +88,7 @@ We're introducing 2 new concepts here:
     * `<array>` is the Array containing the items to use
     * `<iterator>` is the variable that will hold each item being passed to the expression
     * `<expression>` is the code to run on each item.
-  * `each` can also be represented in muiltiline form (and perform multiple actions) as:
+  * `each` can also be represented in multiline form (and perform multiple actions) as:
 ```ruby
 <array>.each do |<iterator>|
   <expression 1>
