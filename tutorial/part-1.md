@@ -124,7 +124,41 @@ References
 * [DragonRuby Docs: Using args.state To Store Your Game State](http://docs.dragonruby.org/#---using--args-state--to-store-your-game-state)
 
 ## The Tile Map
-Instead of working in 1 pixel increments, and having to keep track of nearly a million points, we'll create a play field of 128x72 tiles.
+Instead of working in 1 pixel increments, and having to keep track of nearly a million points, we'll be treating the screen as a field of 128x72 tiles with each tile being 10x10
+
+There are a number of ways to store our tiles:
+### The Grid
+* We could use a 2 dimensional array which tracks every possible position on the screen:
+```ruby
+def tick args
+  walls ||= Array.new(72){Array.new(128, [0,0,0])} # default each tile to black
+  walls[36][64] = [0,255,0]
+  (0..71).each { |y|
+    (0..127).each { |x|
+      args.outputs.solids << [x * 10, y * 10, 10, 10] + walls[y][x]
+    }
+  }
+end
+```
+
+Here we've introduced a lot of new thoughts:
+1) `Array.new` This is one way to create an Array in Ruby.  This specific technique allows you to set the size and initial value
+   * `Array.new(72)` creates a new array with 72 items (0 to 71) each set to `nil`
+   * `Array.new(72, 0)` creates a new array with 72 items each set to 0.
+   * `Array.new(72){...}` creates a new array with 72 items each set by the contents of the code between curly brackets `{...}`
+2) Multidimensional Arrays, that is: Arrays of Arrays.
+   * `Array.new(72){Array.new(128)}` creates an array of arrays, in this case 72 Arrays that can each hold 128 items
+   * This format is usually called RC or Row-Column format as you'll access the arrays using the index of the first array (which we've set to the Height of our playfield) then the index of the second array (which is sized to match the width of our playfield)
+     * eg: `walls[y][x]` the Xth cell of the Yth array in our main array; or `walls[36][64]` the 64th item in the 36th array in Walls.
+3) Ranges:  In Ruby we can represent a range of values with `<start>..<end>`. For example: `0..71` is the range of integers from 0 to 71
+4) Adding Arrays:  If you take two arrays in Ruby and use the `+` operator on them, you get an array with all the items from both arrays.
+  * `[1,2] + [3,4] -> [1,2,3,4]`
+
+References:
+*[Ruby-Doc: Array](https://ruby-doc.org/core-3.1.0/Array.html)
+*[Ruby-Doc: Array + Array](https://ruby-doc.org/core-3.1.0/Array.html#method-i-2B)
+
+### A Hash
 
 ## Obstacles
 Now that we have our play field, let's put some walls on it to give our player something to dodge.
