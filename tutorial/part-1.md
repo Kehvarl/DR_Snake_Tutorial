@@ -106,6 +106,23 @@ References
 * [DragonRuby Docs: Rendering a solid using a Hash](http://docs.dragonruby.org/#---rendering-a-solid-using-a-hash)
 * [Ruby-Doc: Array.each](https://ruby-doc.org/core-2.4.1/Array.html#method-i-each)
 
+## Game State
+An array of walls is fine, but the previous example actually recreates the array from scratch every frame.  That's not too helpful, especially if we ever want to make changes to it.
+
+In DragonRuby, we can use the `args.state` collection to hold information we'll need again in another frame, like so:
+```ruby
+def tick args
+  args.state.player.x ||= 0
+  args.state.player.y ||= 0
+end
+```
+
+Here we introduce a new concept: `||=`.   This operator sets a value if and only if that value is not already set.  In our example we created a player.x and player.y and set them both.  However, the next frame those values will already be set, so the commands to set the will be skipped.  This means that if we change `args.state.player.x` or `args.state.player.y` to new values, those new values will be retained for us.
+
+
+References
+* [DragonRuby Docs: Using args.state To Store Your Game State](http://docs.dragonruby.org/#---using--args-state--to-store-your-game-state)
+
 ## The Tile Map
 Instead of working in 1 pixel increments, and having to keep track of nearly a million points, we'll create a play field of 128x72 tiles.
 
