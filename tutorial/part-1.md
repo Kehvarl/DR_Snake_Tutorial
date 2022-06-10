@@ -126,8 +126,10 @@ References
 ## The Tile Map
 Instead of working in 1 pixel increments, and having to keep track of nearly a million points, we'll be treating the screen as a field of 128x72 tiles with each tile being 10x10
 
+If you don't want to see the stuff we won't be using, skip forward to the section titled **The way we're going to do it** 
+
 There are a number of ways to store our tiles:
-### The Grid
+### Option 1: Array/Grid
 * We could use a 2 dimensional array which tracks every possible position on the screen:
 ```ruby
 def tick args
@@ -158,7 +160,7 @@ References:
 *[Ruby-Doc: Array](https://ruby-doc.org/core-3.1.0/Array.html)
 *[Ruby-Doc: Array + Array](https://ruby-doc.org/core-3.1.0/Array.html#method-i-2B)
 
-### A Hash
+### Option 2: Coordinate Hash
 Instead of a large array filled with mostly empty cells, we could instead use a Hash to store our tiles.  This has some advantages and disadvantages.
 A rough implementation might look like:
 ```ruby
@@ -207,8 +209,25 @@ If we add a few more entries to our hash, we can demonstrate how this works:
 ```
 ![Dragon Ruby Hash Coordinates](../tutorial/DRGTK_Hash.png?raw=true "Hashed Coordinates")
 
-###
+### Thoughts on Tile Maps
+We haven't discussed why we would even use the other two options yet, so let's go into the benefits:
+1) We can quickly look up what's at a given location
+   * Since we store everything in an array or hash by it's coordinates, we can simply check to see what is located at any given X/Y position.
+2) Since each location is unique, we can pretty easily reason about what the play-field will look like
+  * With an Array, if we set `walls[64][36]` to `[255,0,0]` and then later set it to `[0,255,0]`, it will only have one value: `[0,255,0]`.
+  * With a Hash, we have the same behavior: `walls[[36,64]]` is a single memory location, and changing it changes the variable
+  * If we didn't track grid coordinates, we could theoretically draw a square on the screen, and later draw over top of it.  The actual impact of this would just be the second color, but if we weren't careful, we might lose track of the original square that was drawn first.
+3) Tile Maps are traditional.  You'll encounter them in lots of games, and they work really well when you're dealing with 2d maps of repeating shapes
 
+There are, however, downsides to the two examples we've explored.
+1) They're slow.
+   * Because we have to loop through every coordinate to draw our screen, the tile map in example one is extremely slow to update.
+   * The second example isn't much better since it still loops through all possible coordinates and draws squares where we need them.
+2) They're rigid.
+   * If we ever wanted something to be halfway into a location, we couldn't do it.  Additionally, we need to think carefully up front about what we store in each grid coordinate, if we want to change it later there might be a lot of code to refactor
+3) Tile Maps are traditional.  There has to be another way, right?
+
+### The way we're going to do it
 
 
 ## Obstacles
