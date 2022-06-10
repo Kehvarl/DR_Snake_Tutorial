@@ -75,11 +75,11 @@ end
 ```
 
 We're introducing 2 new concepts here:
-* First, we've turned all our Solid arrays into Solid hashes.
+* First, we've turned all our Solid arrays into Solid hashes which can be thought of as a set of key:value pairs
   * A hash in Ruby starts with `{` and ends with `}`
   * Between the curly braces are a series of key-value pairs.  Each pair has a key, a colon (`:`), and the value for that key
-  * This means each item in the hash can be referenced by it's key, and not just location.
-    * eg: `{x:10, y:20}.x` will give you `10`. 
+    * This means each item in the hash can be referenced by it's key, and not just location.
+      * eg: `{x:10, y:20}.x` will give you `10`. 
   * A Solid's hash can contain a number of properties, we're providing just the ones we need which are the ones we used for our previous arrays
     * X, Y, W, H, R, G, B
   * An additional advantage to hashes in DragonRuby is that they can be rendered faster than the arrays, which means there's less impact to having lots of them.
@@ -159,6 +159,57 @@ References:
 *[Ruby-Doc: Array + Array](https://ruby-doc.org/core-3.1.0/Array.html#method-i-2B)
 
 ### A Hash
+Instead of a large array filled with mostly empty cells, we could instead use a Hash to store our tiles.  This has some advantages and disadvantages.
+A rough implementation might look like:
+```ruby
+def tick args
+  walls = {}
+  walls[[64,36]] = [0,255,0]
+  (0..71).each { |y|
+    (0..127).each { |x|
+      if walls[[x,y]]
+        args.outputs.solids << [x * 10, y * 10, 10, 10] + walls[[x,y]]
+      else
+        args.outputs.solids << [x * 10, y * 10, 10, 10] + [0,0,0]
+      end
+    }
+  }
+end
+```
+
+* `walls = {}` Here we've created a hash (a set of key:value pairs) which holds the various tiles we want to draw.
+* `walls[<key>] = <value>` We can set the value of any key in the hash by just using that key like an array index.
+  * `walls[[64,36]] = [0,255,0]`  In this example we're using the array `[64,36]` as our key for the hash.  The key to a hash can be nearly anything you like, but the more complicated your key, the more work the computer has to do to decode which hash entry you want to reference.
+* `if walls[[x,y]]`  Here we're checking if a key exists in the hash.   If there is a value for key `[x,y]` then we'll draw a square of the appropriate color.  If there isn't then we'll draw a black square.
+
+A slightly better approach would be to not draw all those black squares:
+```ruby
+def tick args
+  walls = {}
+  walls[[64,36]] = [0,255,0]
+  args.outputs.solids  << [0, 0, 1280, 720, 0, 0, 0]
+  (0..71).each { |y|
+    (0..127).each { |x|
+      if walls[[x,y]]
+        args.outputs.solids << [x * 10, y * 10, 10, 10] + walls[[x,y]]
+      end
+    }
+  }
+end
+```
+In this example we draw a black background, and then only draw colored squares where we want them.
+If we add a few more entries to our hash, we can demonstrate how this works:
+```ruby
+  walls = {}
+  walls[[64,36]] = [0,255,0]
+  walls[[64,37]] = [0,255,255]
+  walls[[65,36]] = [255,255,0]
+```
+![Dragon Ruby Hash Coordinates](../tutorial/DRGTK_Hash.png?raw=true "Hashed Coordinates")
+
+###
+
+
 
 ## Obstacles
 Now that we have our play field, let's put some walls on it to give our player something to dodge.
