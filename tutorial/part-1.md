@@ -233,7 +233,7 @@ We're going to cheat a little bit.  Our prorities are:
 2) Grid-like.  We want the screen to at least look like we're using a 128x72 grid
 3) Simple.  We really don't want this to be complicated or involve a lot of new topics.
 
-We actually have an approach that gets us close, if you'll recall from our experiments in part 0.  Should you need a refresher, the demo for that looked like:
+We actually have an approach that gets us close, if you'll recall from our experiments earlier in this chapter.  Should you need a refresher, the demo for that looked like:
 ```ruby
 def tick args
   walls = [
