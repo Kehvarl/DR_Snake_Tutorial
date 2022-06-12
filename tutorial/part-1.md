@@ -228,7 +228,48 @@ There are, however, downsides to the two examples we've explored.
 3) Tile Maps are traditional.  There has to be another way, right?
 
 ### The way we're going to do it
+We're going to cheat a little bit.  Our prorities are:
+1) Speed.  We want this to draw as fast as possible
+2) Grid-like.  We want the screen to at least look like we're using a 128x72 grid
+3) Simple.  We really don't want this to be complicated or involve a lot of new topics.
 
+We actually have an approach that gets us close, if you'll recall from our experiments in part 0.  Should you need a refresher, the demo for that looked like:
+```ruby
+def tick args
+  walls = [
+    {x: 640, y:360, w:10, h:10, r:255, g:255, b:255},
+    {x: 650, y:360, w:10, h:10, r:255, g:0, b:255},
+    {x: 660, y:360, w:10, h:10, r:255, g:255, b:0},
+    {x: 670, y:360, w:10, h:10, r:0, g:255, b:255}
+  ]
+
+  args.outputs.solids  << [0, 0, 1280, 720, 0, 0, 0]
+  walls.each do |w|
+    args.outputs.solids << w
+  end
+end
+```
+
+We can actually make this even more effective, this snippet of code:
+```ruby
+  walls.each do |w|
+    args.outputs.solids << w
+  end
+```
+loops through the `walls` array and appends each item to the output, one at at time.  We can speed it up by just appending the entire thing in one instruction:
+```ruby
+def tick args
+  walls = [
+    {x: 640, y:360, w:10, h:10, r:255, g:255, b:255},
+    {x: 650, y:360, w:10, h:10, r:255, g:0, b:255},
+    {x: 660, y:360, w:10, h:10, r:255, g:255, b:0},
+    {x: 670, y:360, w:10, h:10, r:0, g:255, b:255}
+  ]
+
+  args.outputs.solids  << [0, 0, 1280, 720, 0, 0, 0]
+  args.outputs.solids << walls
+end
+```
 
 ## Obstacles
 Now that we have our play field, let's put some walls on it to give our player something to dodge.
