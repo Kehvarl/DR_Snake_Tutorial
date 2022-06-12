@@ -331,10 +331,10 @@ Previously we looked at `args.state`, which stores information and remembers is 
 
 Much better, now we only call the `make_walls` function on the first frame, then remember those walls for the future.
 
-Remove our `puts` line from `make_walls`, save our progress, and now we can actually draw a playfield.
+Remove our `puts` line from `make_walls`, save our progress, and now we can actually draw a play field.
 
 ### Before we move on
-I've already started the code for the next part using the technique discussed, but the best solution if you're making a more complicated game than Snake might be to use a coordinate hash.  After all, we really only need to loop through the map once to render our play field, and having easily looked up data on what's in each grid location could be really helpful if you were making a roguelike, or cloning something like Zelda.
+I've already started the code for the next part using the technique discussed, but the best solution if you're making a more complicated game than Snake might be to use a coordinate hash.  After all: we really only need to loop through the map once to render our play field. Having easily looked up data on what's in each grid location could be really helpful if you were making a roguelike, or cloning something like Zelda.
 
 ## Obstacles
 Now that we have our play field, let's put some walls on it to give our player something to dodge.
