@@ -250,6 +250,7 @@ def tick args
 end
 ```
 
+#### Drawing Faster
 We can actually make this even more effective, this snippet of code:
 ```ruby
   walls.each do |w|
@@ -270,6 +271,67 @@ def tick args
   args.outputs.solids << walls
 end
 ```
+
+#### Cleaning up
+Ideally, each function does 1 thing.   Right now our `tick` function creates the walls array, then draws it.
+Let's move wall creation out to its own function: `make_walls`
+```ruby
+def make_walls
+  walls = [
+    {x: 640, y:360, w:10, h:10, r:255, g:255, b:255},
+    {x: 650, y:360, w:10, h:10, r:255, g:0, b:255},
+    {x: 660, y:360, w:10, h:10, r:255, g:255, b:0},
+    {x: 670, y:360, w:10, h:10, r:0, g:255, b:255}
+  ]
+  return walls
+end
+
+def tick args
+  walls ||= make_walls
+
+  args.outputs.solids  << [0, 0, 1280, 720, 0, 0, 0]
+  args.outputs.solids << walls
+end
+```
+
+We've actually done 2 things above:
+1) Created a `make_walls` function that returns a nice array of wall segments
+2) Used `||=` to store our walls so we don't try to re-save them every tick.
+
+Actually, let's check out assumption 2.  Add a `puts` statement to `make_walls` so we can see if it gets called more than once:
+```ruby
+def make_walls
+  walls = [
+    {x: 640, y:360, w:10, h:10, r:255, g:255, b:255},
+    {x: 650, y:360, w:10, h:10, r:255, g:0, b:255},
+    {x: 660, y:360, w:10, h:10, r:255, g:255, b:0},
+    {x: 670, y:360, w:10, h:10, r:0, g:255, b:255}
+  ]
+  puts "Making Walls"
+  return walls
+end
+```
+
+We run Dragon Ruby, hit \` (backtick) to enter the console, and...
+![Dragon Ruby ||=](../tutorial/DRGTK_setting_walls.png?raw=true "variable ||=")
+Oops, it's definitely calling that function more than once.
+
+Hit backtick again to get out ot the console, jump back to your code, and change our `tick` function:
+```ruby
+def tick args
+  args.state.walls ||= make_walls
+
+  args.outputs.solids  << [0, 0, 1280, 720, 0, 0, 0]
+  args.outputs.solids << args.state.walls
+end
+```
+
+Previously we looked at `args.state`, which stores information and remembers is between ticks.  So now we're adding `walls` to that `args.state`, and remembering to draw from that state.  Run our code, open the console and...
+![Dragon Ruby state ||=](../tutorial/DRGTK_gamestate_walls.png?raw=true "state ||=")
+
+Much better, now we only call the `make_walls` function on the first frame, then remember those walls for the future.
+
+Remove our `puts` line from `make_walls`, save our progress, and now we can actually draw a playfield.
 
 ## Obstacles
 Now that we have our play field, let's put some walls on it to give our player something to dodge.
