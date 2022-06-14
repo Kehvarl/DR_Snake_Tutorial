@@ -338,3 +338,22 @@ I've already started the code for the next part using the technique discussed, b
 
 ## Obstacles
 Now that we have our play field, let's put some walls on it to give our player something to dodge.
+
+```ruby
+def make_walls
+  walls = []
+  (0..127).each do |x|
+    walls << {x: x*10, y:0, w:10, h:10, r:255, g:0, b:0}
+    walls << {x: x*10, y:710, w:10, h:10, r:255, g:0, b:0}
+  end
+
+  (0..71).each do |y|
+    walls << {x: 0, y:y*10, w:10, h:10, r:255, g:0, b:0}
+    walls << {x: 1270, y:y*10, w:10, h:10, r:255, g:0, b:0}
+  end
+
+  return walls
+end
+```
+
+![Dragon Ruby Obstacle Border](../tutorial/DRGTK_obstacle_border.png?raw=true "Border Walls")
