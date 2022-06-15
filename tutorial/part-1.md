@@ -339,6 +339,7 @@ I've already started the code for the next part using the technique discussed, b
 ## Obstacles
 Now that we have our play field, let's put some walls on it to give our player something to dodge.
 
+We'll modify our `make_walls` function to draw a border around the entire play field.
 ```ruby
 def make_walls
   walls = []
@@ -355,5 +356,6 @@ def make_walls
   return walls
 end
 ```
+Basically we draw 2 stripes of boxes: one across the top and one across the bottom.  Then we draw two more stripes down the sides
 
 ![Dragon Ruby Obstacle Border](../tutorial/DRGTK_obstacle_border.png?raw=true "Border Walls")
