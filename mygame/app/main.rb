@@ -17,5 +17,8 @@ def tick args
   args.state.walls ||= make_walls
 
   args.outputs.solids  << [0, 0, 1280, 720, 0, 0, 0]
+
+  args.outputs.solids  << {x: 640, y:360, w:10, h:10, r:0, g:128, b:0}
+
   args.outputs.solids << args.state.walls
 end
