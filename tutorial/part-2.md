@@ -1,6 +1,23 @@
 # Part 2 - Drawing The Snake
 
 ## A Single Box
+Let's start by just drawing a single box to represent our snake.  We can figure out how to deal with a long snake later.
+
+We already know how to display a box on the screen, so leveraging that knowledge, we get:
+```ruby
+def tick args
+  args.state.walls ||= make_walls
+
+  args.outputs.solids  << [0, 0, 1280, 720, 0, 0, 0]
+  
+  args.outputs.solids  << {x: 640, y:360, w:10, h:10, r:0, g:128, b:0}
+  
+  args.outputs.solids << args.state.walls
+end
+```
+Now we have our 1-block snake on the screen!
+![That first bit of snake](../tutorial/DRGTK_snake_1.png?raw=true "Snake Head")
+
 
 ## Moving in a Straight Line
 
