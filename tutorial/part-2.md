@@ -37,9 +37,32 @@ end
 There, now we can do some interesting things with our snake
 
 ## Moving in a Straight Line
+Let's make our snake move!  We can just update the X coordinate every frame, like so:
+```ruby
+def tick args
+  args.state.walls ||= make_walls
+  args.state.snake.x ||= 64
+  args.state.snake.y ||= 36
 
-## Keyboard Input
+  args.state.snake.x += 1
 
-## A Longer Snake
+  args.outputs.solids  << [0, 0, 1280, 720, 0, 0, 0]
 
-## Growing Your Snake
+  args.outputs.solids  << {x: args.state.snake.x*10, y:args.state.snake.y*10, w:10, h:10, r:0, g:128, b:0}
+
+  args.outputs.solids << args.state.walls
+end
+```
+
+Of course, now our snake runs off screen and vanishes.  Let's fix that by making the screen wrap around (and pretend we can walk through walls at the moment)
+```ruby
+args.state.snake.x += 1
+if args.state.snake.x > 128
+args.state.snake.x = 0
+end
+```
+
+## Velocity
+
+
+## Movement Speed
