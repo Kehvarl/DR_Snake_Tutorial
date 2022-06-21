@@ -63,6 +63,38 @@ end
 ```
 
 ## Velocity
+Instead of moving our snake to the right and only to the right, let's make that controllable:
 
+```ruby
+def tick args
+  args.state.walls ||= make_walls
+  args.state.snake.x ||= 64
+  args.state.snake.y ||= 36
+  args.state.snake.vx ||= 1
+  args.state.snake.vy ||= 0
+
+  args.state.snake.x += args.state.snake.vx
+  if args.state.snake.x > 128
+    args.state.snake.x = 0
+  end
+```
+
+As you can see, we're using `vx` and `vy` to store movement in the X and Y axises.   We need to update our X position as well, so let's make that change now:
+
+```ruby
+  args.state.snake.x += args.state.snake.vx
+  args.state.snake.y += args.state.snake.vy
+  if args.state.snake.x > 128
+    args.state.snake.x = 0
+  end
+```
+Just to prove that it works, let's change that wrap-around screen code to make the snake bounce off walls...
+
+```ruby
+  if args.state.snake.x > 128 || args.state.snake.x < 0
+    args.state.snake.vx = -args.state.snake.vx
+  end
+```
+Now our poor snake is bouncing frantically from side to side...
 
 ## Movement Speed
