@@ -98,3 +98,40 @@ Just to prove that it works, let's change that wrap-around screen code to make t
 Now our poor snake is bouncing frantically from side to side...
 
 ## Movement Speed
+
+Our snake moves really fast.  It would be nice if we could maybe only move it every few ticks.
+To do that, let's introduce a delay and we can play with that delay to adjust the snake speed
+
+```ruby
+def tick args
+  args.state.update ||=1
+  args.state.walls ||= make_walls
+  args.state.snake.x ||= 64
+  args.state.snake.y ||= 36
+  args.state.snake.vx ||= 1
+  args.state.snake.vy ||= 0
+
+  args.state.update -= 1
+  if args.state.update <= 0
+    args.state.snake.x += args.state.snake.vx
+    args.state.snake.y += args.state.snake.vy
+    if args.state.snake.x > 128 || args.state.snake.x < 0
+      args.state.snake.vx = -args.state.snake.vx
+    end
+    args.state.update = 10
+  end
+
+  args.outputs.solids  << [0, 0, 1280, 720, 0, 0, 0]
+
+  args.outputs.solids  << {x: args.state.snake.x*10, y:args.state.snake.y*10, w:10, h:10, r:0, g:128, b:0}
+
+  args.outputs.solids << args.state.walls
+end
+```
+
+Now we only move and draw the snake once every 10 frames.  This is clearly too slow, so we can tweak that:
+```ruby
+args.state.update = 3 # 20 FPS
+```
+
+Now we're updatign the snake 20 times per second, and it's much easier to keep track of.  As we move up in level, we could even adjust that by storing our max count in the game state and reducing it as we progress.

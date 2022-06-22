@@ -14,16 +14,21 @@ def make_walls
 end
 
 def tick args
+  args.state.update ||=1
   args.state.walls ||= make_walls
   args.state.snake.x ||= 64
   args.state.snake.y ||= 36
   args.state.snake.vx ||= 1
   args.state.snake.vy ||= 0
 
-  args.state.snake.x += args.state.snake.vx
-  args.state.snake.y += args.state.snake.vy
-  if args.state.snake.x > 128 || args.state.snake.x < 0
-    args.state.snake.vx = -args.state.snake.vx
+  args.state.update -= 1
+  if args.state.update <= 0
+    args.state.snake.x += args.state.snake.vx
+    args.state.snake.y += args.state.snake.vy
+    if args.state.snake.x > 128 || args.state.snake.x < 0
+      args.state.snake.vx = -args.state.snake.vx
+    end
+    args.state.update = 3
   end
 
   args.outputs.solids  << [0, 0, 1280, 720, 0, 0, 0]
