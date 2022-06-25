@@ -43,8 +43,22 @@ def render args
 end
 
 def tick args
-  if args.state.tick_count == 1
+  if args.state.tick_count <= 1
     initialize args
+  end
+
+  if args.inputs.keyboard.up
+    args.state.snake.vx = 0
+    args.state.snake.vy = 1
+  elsif args.inputs.keyboard.down
+    args.state.snake.vx = 0
+    args.state.snake.vy = -1
+  elsif args.inputs.keyboard.left
+    args.state.snake.vx = -1
+    args.state.snake.vy = 0
+  elsif args.inputs.keyboard.right
+    args.state.snake.vx = 1
+    args.state.snake.vy = 0
   end
 
   update_snake args
