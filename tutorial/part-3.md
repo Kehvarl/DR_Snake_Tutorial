@@ -62,7 +62,7 @@ As you can see, we've just moved the various blocks of code out of `tick` into t
 
 Now that we can think about our code in smaller pieces, let's make it complicated again!
 
-## KeyDown
+##  Input.Keyboard
 
 ```ruby
 def tick args
@@ -91,8 +91,4 @@ end
 
 References
 * [DragonRuby Docs: Inputs](http://docs.dragonruby.org/#---args-inputs-)
-
-## KeyUp
-
-## Modifiers
 
