@@ -1,21 +1,28 @@
 def make_walls
   walls = []
+  wall_coords = []
   (0..127).each do |x|
     walls << {x: x*10, y:0, w:10, h:10, r:255, g:0, b:0}
     walls << {x: x*10, y:710, w:10, h:10, r:255, g:0, b:0}
+    wall_coords << [x,0]
+    wall_coords << [x,71]
   end
 
   (0..71).each do |y|
     walls << {x: 0, y:y*10, w:10, h:10, r:255, g:0, b:0}
     walls << {x: 1270, y:y*10, w:10, h:10, r:255, g:0, b:0}
+    wall_coords << [0,y]
+    wall_coords << [127,y]
   end
 
-  return walls
+  return [walls, wall_coords]
 end
 
 def initialize args
   args.state.update ||=1
-  args.state.walls ||= make_walls
+  walls ||= make_walls
+  args.state.walls = walls[0]
+  args.state.walls_coords = walls[1]
   args.state.snake.x ||= 64
   args.state.snake.y ||= 36
   args.state.snake.vx ||= 1
@@ -63,8 +70,7 @@ def tick args
 
   update_snake args
   args.state.walls.each do |w|
-    if w.x/10 == args.state.snake.x &&
-       w.y/10 == args.state.snake.y
+    if args.state.wall_coords.include? [args.state.snake.x, args.state.snake.y]
       puts "Collided with wall!"
     end
   end
