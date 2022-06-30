@@ -19,6 +19,35 @@ As you can see, this isn't exactly ideal for a few reasons:
 * We are performing math on the wall position before checking for the interaction. This may not be ideal if there's any chance of a rounding error
 
 To improve our approach, maybe we could revisit how we store walls. Remember: we only draw them once, then basically remember that output, so maybe we could make searching for walls easier.  Additionally, we're going to want to check for more than just walls eventually, so we should make it as easy as possible to expand on our search routine.
+For example:
+```ruby
+def make_wall_coords
+  wall_coords = []
+  (0..127).each do |x|
+    wall_coords << [x,0]
+    wall_coords << [x,71]
+  end
 
+  (0..71).each do |y|
+    wall_coords << [0,y]
+    wall_coords << [127,y]
+  end
+
+  return wall_coords
+end
+
+#  ...
+def tick args
+  args.state.wall_coords ||= make_wall_coords
+#         ...  
+    args.state.walls.each do |w|
+      if args.state.wall_coords.include? [args.state.snake.x, args.state.snake.y]
+        puts "Collided with wall!"
+      end
+    end
+end
+```
+
+This way we can just use the `Array.include?` method to check for coordinate overlap.
 
 ## Responding to collisions 
