@@ -1,3 +1,18 @@
+def make_wall_coords
+  wall_coords = []
+  (0..127).each do |x|
+    wall_coords << [x,0]
+    wall_coords << [x,71]
+  end
+
+  (0..71).each do |y|
+    wall_coords << [0,y]
+    wall_coords << [127,y]
+  end
+
+  return wall_coords
+end
+
 def make_walls
   walls = []
   wall_coords = []
@@ -20,9 +35,8 @@ end
 
 def initialize args
   args.state.update ||=1
-  walls ||= make_walls
-  args.state.walls = walls[0]
-  args.state.walls_coords = walls[1]
+  args.state.walls = make_walls
+  args.state.walls_coords = make_wall_coords
   args.state.snake.x ||= 64
   args.state.snake.y ||= 36
   args.state.snake.vx ||= 1
