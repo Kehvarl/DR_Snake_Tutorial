@@ -10,33 +10,21 @@ def make_wall_coords
     wall_coords << [127,y]
   end
 
-  return wall_coords
+  wall_coords
 end
 
-def make_walls
-  walls = []
-  wall_coords = []
-  (0..127).each do |x|
-    walls << {x: x*10, y:0, w:10, h:10, r:255, g:0, b:0}
-    walls << {x: x*10, y:710, w:10, h:10, r:255, g:0, b:0}
-    wall_coords << [x,0]
-    wall_coords << [x,71]
+def draw_array (arr, color)
+  out = []
+  arr.each do |e|
+    out << {x: e[0]*10, y: e[1]*10, w:10, h:10, **color}
   end
-
-  (0..71).each do |y|
-    walls << {x: 0, y:y*10, w:10, h:10, r:255, g:0, b:0}
-    walls << {x: 1270, y:y*10, w:10, h:10, r:255, g:0, b:0}
-    wall_coords << [0,y]
-    wall_coords << [127,y]
-  end
-
-  return [walls, wall_coords]
+  out
 end
 
 def initialize args
   args.state.update ||=1
-  args.state.walls = make_walls
   args.state.walls_coords = make_wall_coords
+  args.state.walls = draw_array(args.state.walls_coords, {r:255, g:0, b:0})
   args.state.snake.x ||= 64
   args.state.snake.y ||= 36
   args.state.snake.vx ||= 1
