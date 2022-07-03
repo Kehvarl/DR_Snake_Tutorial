@@ -1,5 +1,7 @@
 # Part 4 - Collisions
 
+In a game of snake, collisions are one of the main gameplay elements:  You can collide with a wall and die, or with the body of your own snake, or even an obstacle scattered around the play field.  You could also collide with an objective and eat it to grow ever longer.
+
 ## Detecting collisions
 In order to know if we've come into contact with something interesting, we need a way to check for that.
  
