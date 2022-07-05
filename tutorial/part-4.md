@@ -74,6 +74,7 @@ def initialize args
 end
 ```
 
+
 This new draw method isn't the most efficient, but it lets us take any array of coordinates and spit out an array of drawable hashes.
 There is a new concept here: `**`
 * The Splat (`*`) can be used to put the contents of one array into another.  The double-splat, or "splat-splat" (`**`) can be used to insert the contents of a hash into another hash.
