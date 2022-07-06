@@ -80,9 +80,12 @@ def tick args
   end
 
   update_snake args
-  if args.state.wall_coords.include? [args.state.snake.x, args.state.snake.y]
+  if args.state.walls_coords.include? [args.state.snake.x, args.state.snake.y] or
+    args.state.obstacle_coords.include? [args.state.snake.x, args.state.snake.y]
     args.state.snake.vx = -args.state.snake.vx
     args.state.snake.x += 2*args.state.snake.vx
+    args.state.snake.vy = -args.state.snake.vy
+    args.state.snake.y += 2*args.state.snake.vy
   end
   render args
 end
