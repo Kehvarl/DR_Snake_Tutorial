@@ -43,7 +43,7 @@ def tick args
   args.state.wall_coords ||= make_wall_coords
 #         ...  
     args.state.walls.each do |w|
-      if args.state.wall_coords.include? [args.state.snake.x, args.state.snake.y]
+      if args.state.walls_coords.include? [args.state.snake.x, args.state.snake.y]
         puts "Collided with wall!"
       end
     end
@@ -81,3 +81,13 @@ There is a new concept here: `**`
 * We're using it to pass in the 3-argument hash for color (R, G, and B).  This will let us make items of several colors with just one function.
 
 ## Responding to collisions 
+
+```ruby
+  if args.state.walls_coords.include? [args.state.snake.x, args.state.snake.y] or
+    args.state.obstacle_coords.include? [args.state.snake.x, args.state.snake.y]
+    args.state.snake.vx = -args.state.snake.vx
+    args.state.snake.x += 2*args.state.snake.vx
+    args.state.snake.vy = -args.state.snake.vy
+    args.state.snake.y += 2*args.state.snake.vy
+  end
+```
