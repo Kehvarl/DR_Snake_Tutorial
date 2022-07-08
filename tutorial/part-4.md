@@ -81,7 +81,7 @@ There is a new concept here: `**`
 * We're using it to pass in the 3-argument hash for color (R, G, and B).  This will let us make items of several colors with just one function.
 
 ## Responding to collisions 
-
+For the time being, each time our snake hits and object, let's reverse direction and move them away from the object...
 ```ruby
   if args.state.walls_coords.include? [args.state.snake.x, args.state.snake.y] or
     args.state.obstacle_coords.include? [args.state.snake.x, args.state.snake.y]
