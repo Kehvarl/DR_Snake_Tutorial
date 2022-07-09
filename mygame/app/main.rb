@@ -51,6 +51,18 @@ def update_snake args
   end
 end
 
+def check_collisions args
+  if args.state.walls_coords.include? [args.state.snake.x, args.state.snake.y] or
+    args.state.obstacle_coords.include? [args.state.snake.x, args.state.snake.y]
+    args.state.snake.vx = -args.state.snake.vx
+    args.state.snake.x += 2*args.state.snake.vx
+    args.state.snake.vy = -args.state.snake.vy
+    args.state.snake.y += 2*args.state.snake.vy
+    return true
+  end
+  false
+end
+
 def render args
   args.outputs.solids  << [0, 0, 1280, 720, 0, 0, 0]
 
@@ -80,12 +92,6 @@ def tick args
   end
 
   update_snake args
-  if args.state.walls_coords.include? [args.state.snake.x, args.state.snake.y] or
-    args.state.obstacle_coords.include? [args.state.snake.x, args.state.snake.y]
-    args.state.snake.vx = -args.state.snake.vx
-    args.state.snake.x += 2*args.state.snake.vx
-    args.state.snake.vy = -args.state.snake.vy
-    args.state.snake.y += 2*args.state.snake.vy
-  end
+  check_collisions args
   render args
 end

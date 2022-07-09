@@ -91,3 +91,18 @@ For the time being, each time our snake hits and object, let's reverse direction
     args.state.snake.y += 2*args.state.snake.vy
   end
 ```
+
+In fact, we can move that right into a simple method:
+```ruby
+def check_collisions args
+  if args.state.walls_coords.include? [args.state.snake.x, args.state.snake.y] or
+    args.state.obstacle_coords.include? [args.state.snake.x, args.state.snake.y]
+    args.state.snake.vx = -args.state.snake.vx
+    args.state.snake.x += 2*args.state.snake.vx
+    args.state.snake.vy = -args.state.snake.vy
+    args.state.snake.y += 2*args.state.snake.vy
+    return true
+  end
+  false
+end
+```
