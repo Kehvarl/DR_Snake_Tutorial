@@ -106,3 +106,29 @@ def check_collisions args
   false
 end
 ```
+
+This is fine, assuming we only want our snake to bounce off walls and obstacles.  A goo principle to bear in mind with functions is that it should do exactly 1 thing.  The function we have right now, actually does 2: It checks for collision, and it reverses our snake's direction.  A more focused function might look like:
+```ruby
+def check_collisions args
+  if args.state.walls_coords.include? [args.state.snake.x, args.state.snake.y] or
+    args.state.obstacle_coords.include? [args.state.snake.x, args.state.snake.y]
+    return true
+  end
+  false
+end
+```
+
+Of course, now we may know that a collusion happened, but not what type of collision it was.  Something a little more elaborate could look like:
+```ruby
+def check_collisions args
+  if args.state.walls_coords.include? [args.state.snake.x, args.state.snake.y]
+    :wall
+  elsif args.state.obstacle_coords.include? [args.state.snake.x, args.state.snake.y]
+    :obstacle
+  else
+    false
+  end 
+end
+```
+
+This lets us move our responses to collisions into a more appropriate place in our program.
