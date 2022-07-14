@@ -90,7 +90,8 @@ def tick args
   end
 
   update_snake args
-  if check_collisions(args)
+  hit = check_collisions(args)
+  if hit
     args.state.snake.vx = -args.state.snake.vx
     args.state.snake.x += 2*args.state.snake.vx
     args.state.snake.vy = -args.state.snake.vy
