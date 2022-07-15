@@ -133,4 +133,14 @@ end
 
 This lets us move our responses to collisions into a more appropriate place in our program.
 
+One little tweak to our collision handling so we can do cool stuff later and:
+```ruby
+  hit = check_collisions(args)
+  if hit
+    args.state.snake.vx = -args.state.snake.vx
+    args.state.snake.x += 2*args.state.snake.vx
+    args.state.snake.vy = -args.state.snake.vy
+    args.state.snake.y += 2*args.state.snake.vy
+  end
+```
 ###
