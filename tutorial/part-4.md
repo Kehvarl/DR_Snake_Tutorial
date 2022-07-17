@@ -143,4 +143,3 @@ One little tweak to our collision handling so we can do cool stuff later and:
     args.state.snake.y += 2*args.state.snake.vy
   end
 ```
-###

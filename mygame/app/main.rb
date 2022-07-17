@@ -21,6 +21,12 @@ def make_obstacles
   obstacles
 end
 
+def make_pickup
+  x = rand(126) + 1
+  y = rand(70) + 1
+  return {x:x, y:y, w:10, h:10, r:0, g:0, b:255}
+end
+
 def draw_array (arr, color)
   out = []
   arr.each do |e|
@@ -35,6 +41,7 @@ def initialize args
   args.state.obstacle_coords ||= make_obstacles
   args.state.walls ||= draw_array(args.state.walls_coords, {r:255, g:0, b:0})
   args.state.obstacles ||= draw_array(args.state.obstacle_coords, {r: 128, g: 0, b: 128})
+  args.state.pickups ||= make_pickup
   args.state.snake.x ||= 64
   args.state.snake.y ||= 36
   args.state.snake.vx ||= 1
@@ -68,6 +75,7 @@ def render args
 
   args.outputs.solids << args.state.walls
   args.outputs.solids << args.state.obstacles
+  args.outputs.solids << args.state.pickups
 end
 
 def tick args
