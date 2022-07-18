@@ -21,13 +21,22 @@ def make_obstacles
   obstacles
 end
 
-def make_pickup
-  x = rand(126) + 1
-  y = rand(70) + 1
-  return {x:x, y:y, w:10, h:10, r:0, g:0, b:255}
+def make_pickup(args)
+  x = 0
+  y = 0
+  hit = true
+  while hit
+    x = rand(126) + 1
+    y = rand(70) + 1
+    hit = check_collisions(x, y,
+                           args.state.walls_coords,
+                           args.state.obstacle_coords,
+                           args.state.pickup_coords)
+  end
+  return [x,y]
 end
 
-def draw_array (arr, color)
+def draw_array(arr, color)
   out = []
   arr.each do |e|
     out << {x: e[0]*10, y: e[1]*10, w:10, h:10, **color}
@@ -39,9 +48,10 @@ def initialize args
   args.state.update ||=1
   args.state.walls_coords ||= make_wall_coords
   args.state.obstacle_coords ||= make_obstacles
+  args.state.pickup_coords ||= [make_pickup(args)]
   args.state.walls ||= draw_array(args.state.walls_coords, {r:255, g:0, b:0})
   args.state.obstacles ||= draw_array(args.state.obstacle_coords, {r: 128, g: 0, b: 128})
-  args.state.pickups ||= make_pickup
+  args.state.pickups ||= draw_array(args.state.pickup_coords, {r: 0, g: 0, b: 255})
   args.state.snake.x ||= 64
   args.state.snake.y ||= 36
   args.state.snake.vx ||= 1
@@ -58,11 +68,13 @@ def update_snake args
   end
 end
 
-def check_collisions args
-  if args.state.walls_coords.include? [args.state.snake.x, args.state.snake.y]
+def check_collisions(x,y,walls,obstacles,pickups)
+  if walls.include? [x,y]
     :wall
-  elsif args.state.obstacle_coords.include? [args.state.snake.x, args.state.snake.y]
+  elsif obstacles.include? [x,y]
     :obstacle
+  elsif pickups.include? [x,y]
+    :pickup
   else
     false
   end
@@ -98,7 +110,10 @@ def tick args
   end
 
   update_snake args
-  hit = check_collisions(args)
+  hit = check_collisions(args.state.snake.x, args.state.snake.y,
+                         args.state.walls_coords,
+                         args.state.obstacle_coords,
+                         args.state.pickup_coords)
   if hit
     args.state.snake.vx = -args.state.snake.vx
     args.state.snake.x += 2*args.state.snake.vx
