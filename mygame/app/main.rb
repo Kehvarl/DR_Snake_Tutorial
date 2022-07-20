@@ -51,7 +51,6 @@ def initialize args
   args.state.pickup_coords ||= [make_pickup(args)]
   args.state.walls ||= draw_array(args.state.walls_coords, {r:255, g:0, b:0})
   args.state.obstacles ||= draw_array(args.state.obstacle_coords, {r: 128, g: 0, b: 128})
-  args.state.pickups ||= draw_array(args.state.pickup_coords, {r: 0, g: 0, b: 255})
   args.state.snake.x ||= 64
   args.state.snake.y ||= 36
   args.state.snake.vx ||= 1
@@ -87,7 +86,7 @@ def render args
 
   args.outputs.solids << args.state.walls
   args.outputs.solids << args.state.obstacles
-  args.outputs.solids << args.state.pickups
+  args.outputs.solids << draw_array(args.state.pickup_coords, {r: 0, g: 0, b: 255})
 end
 
 def tick args
@@ -115,10 +114,14 @@ def tick args
                          args.state.obstacle_coords,
                          args.state.pickup_coords)
   if hit
-    args.state.snake.vx = -args.state.snake.vx
-    args.state.snake.x += 2*args.state.snake.vx
-    args.state.snake.vy = -args.state.snake.vy
-    args.state.snake.y += 2*args.state.snake.vy
+    if hit == :pickup
+      args.state.pickup_coords = [make_pickup(args)]
+    else
+      args.state.snake.vx = -args.state.snake.vx
+      args.state.snake.x += 2*args.state.snake.vx
+      args.state.snake.vy = -args.state.snake.vy
+      args.state.snake.y += 2*args.state.snake.vy
+    end
   end
   render args
 end
