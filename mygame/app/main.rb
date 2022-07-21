@@ -48,7 +48,7 @@ def initialize args
   args.state.update ||=1
   args.state.walls_coords ||= make_wall_coords
   args.state.obstacle_coords ||= make_obstacles
-  args.state.pickup_coords ||= [make_pickup(args)]
+  args.state.pickup_coords ||= [make_pickup(args), make_pickup(args)]
   args.state.walls ||= draw_array(args.state.walls_coords, {r:255, g:0, b:0})
   args.state.obstacles ||= draw_array(args.state.obstacle_coords, {r: 128, g: 0, b: 128})
   args.state.snake.x ||= 64
@@ -115,7 +115,8 @@ def tick args
                          args.state.pickup_coords)
   if hit
     if hit == :pickup
-      args.state.pickup_coords = [make_pickup(args)]
+      args.state.pickup_coords.delete([args.state.snake.x, args.state.snake.y])
+      args.state.pickup_coords << make_pickup(args)
     else
       args.state.snake.vx = -args.state.snake.vx
       args.state.snake.x += 2*args.state.snake.vx

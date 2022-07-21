@@ -126,3 +126,19 @@ Now we have the ability to collide with pickups, and some better drawing routine
 ```
 
 If we hit a pickup we just go ahead and make a new one, trusting our render routine to display it for us.
+
+### Smarter pickup responses
+What happens if we have 2 pickups on the screen and pick up one of them?   They both vanish!  Let's fix that...
+We'll modify our pickup collision routine to delete just the pickup we collided with, and then add a new one, like so:
+```ruby
+    if hit == :pickup
+      args.state.pickup_coords.delete([args.state.snake.x, args.state.snake.y])
+      args.state.pickup_coords << make_pickup(args)
+    else 
+    ...
+```
+
+We can demonstrate how this works by initializing 2 pickups instead of one...
+```ruby
+args.state.pickup_coords ||= [make_pickup(args), make_pickup(args)]
+```
