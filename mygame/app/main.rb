@@ -31,7 +31,8 @@ def make_pickup(args)
     hit = check_collisions(x, y,
                            args.state.walls_coords,
                            args.state.obstacle_coords,
-                           args.state.pickup_coords)
+                           args.state.pickup_coords,
+                           args.state.snake.body)
   end
   return [x,y]
 end
@@ -46,39 +47,41 @@ end
 
 def initialize args
   args.state.update ||=1
-  args.state.walls_coords ||= make_wall_coords
-  args.state.obstacle_coords ||= make_obstacles
-  args.state.pickup_coords ||= [make_pickup(args), make_pickup(args)]
-  args.state.walls ||= draw_array(args.state.walls_coords, {r:255, g:0, b:0})
-  args.state.obstacles ||= draw_array(args.state.obstacle_coords, {r: 128, g: 0, b: 128})
   args.state.snake.length ||= 1
   args.state.snake.body ||= [[64,64]]
   args.state.snake.x ||= 64
   args.state.snake.y ||= 64
   args.state.snake.vx ||= 1
   args.state.snake.vy ||= 0
+  args.state.walls_coords ||= make_wall_coords
+  args.state.obstacle_coords ||= make_obstacles
+  args.state.pickup_coords ||= [make_pickup(args), make_pickup(args)]
+  args.state.walls ||= draw_array(args.state.walls_coords, {r:255, g:0, b:0})
+  args.state.obstacles ||= draw_array(args.state.obstacle_coords, {r: 128, g: 0, b: 128})
 end
 
 def update_snake args
   args.state.update -= 1
   if args.state.update <= 0
-    args.state.snake.x += args.state.snake.vx
-    args.state.snake.y += args.state.snake.vy
     args.state.snake.body << [args.state.snake.x, args.state.snake.y]
     if args.state.snake.body.length > args.state.snake.length
       args.state.snake.body = args.state.snake.body.drop((args.state.snake.body.length - args.state.snake.length))
     end
     args.state.update = 3
+    args.state.snake.x += args.state.snake.vx
+    args.state.snake.y += args.state.snake.vy
   end
 end
 
-def check_collisions(x,y,walls,obstacles,pickups)
+def check_collisions(x,y,walls,obstacles,pickups,body)
   if walls.include? [x,y]
     :wall
   elsif obstacles.include? [x,y]
     :obstacle
   elsif pickups.include? [x,y]
     :pickup
+  elsif body.include? [x,y]
+    :body
   else
     false
   end
@@ -116,7 +119,8 @@ def tick args
   hit = check_collisions(args.state.snake.x, args.state.snake.y,
                          args.state.walls_coords,
                          args.state.obstacle_coords,
-                         args.state.pickup_coords)
+                         args.state.pickup_coords,
+                         args.state.snake.body)
   if hit
     if hit == :pickup
       args.state.snake.length += 1
@@ -124,9 +128,11 @@ def tick args
       args.state.pickup_coords << make_pickup(args)
     else
       args.state.snake.vx = -args.state.snake.vx
-      args.state.snake.x += 2*args.state.snake.vx
       args.state.snake.vy = -args.state.snake.vy
-      args.state.snake.y += 2*args.state.snake.vy
+      if hit != :body
+        args.state.snake.x += args.state.snake.vx
+        args.state.snake.y += args.state.snake.vy
+      end
     end
   end
   render args
