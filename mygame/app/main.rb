@@ -126,13 +126,13 @@ def tick args
       args.state.snake.length += 1
       args.state.pickup_coords.delete([args.state.snake.x, args.state.snake.y])
       args.state.pickup_coords << make_pickup(args)
+    elsif hit == :body
+      # game over
     else
       args.state.snake.vx = -args.state.snake.vx
       args.state.snake.vy = -args.state.snake.vy
-      if hit != :body
-        args.state.snake.x += args.state.snake.vx
-        args.state.snake.y += args.state.snake.vy
-      end
+      args.state.snake.x += args.state.snake.vx
+      args.state.snake.y += args.state.snake.vy
     end
   end
   render args
