@@ -70,6 +70,16 @@ def update_snake args
     args.state.update = 3
     args.state.snake.x += args.state.snake.vx
     args.state.snake.y += args.state.snake.vy
+    if args.state.snake.x > 127
+      args.state.snake.x = 0
+    elsif args.state.snake.x < 0
+      args.state.snake.x = 127
+    end
+    if args.state.snake.y > 71
+      args.state.snake.y = 0
+    elsif args.state.snake.y < 0
+      args.state.snake.y = 71
+    end
   end
 end
 
@@ -129,6 +139,7 @@ def tick args
     elsif hit == :body
       # game over
     else
+      # maybe game over?
       args.state.snake.vx = -args.state.snake.vx
       args.state.snake.vy = -args.state.snake.vy
       args.state.snake.x += args.state.snake.vx
