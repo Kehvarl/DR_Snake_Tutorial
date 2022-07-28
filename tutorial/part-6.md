@@ -114,3 +114,18 @@ def initialize args
 end
 ```
 
+Let's add something interesting to our map:  We'll give our snake the ability to move off the screen on one edge and return on the other.  We will first make an updage to our `update_snake` function by adding the following after we update x and y:
+```ruby
+    args.state.snake.x += args.state.snake.vx
+    args.state.snake.y += args.state.snake.vy
+    if args.state.snake.x > 127
+      args.state.snake.x = 0
+    elsif args.state.snake.x < 0
+      args.state.snake.x = 127
+    end
+    if args.state.snake.y > 71
+      args.state.snake.y = 0
+    elsif args.state.snake.y < 0
+      args.state.snake.y = 71
+    end
+```
