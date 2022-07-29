@@ -1,8 +1,10 @@
 def make_wall_coords
   wall_coords = []
   (0..127).each do |x|
-    wall_coords << [x,0]
-    wall_coords << [x,71]
+    if x < 62 or x > 66
+      wall_coords << [x,0]
+      wall_coords << [x,71]
+    end
   end
 
   (0..71).each do |y|
