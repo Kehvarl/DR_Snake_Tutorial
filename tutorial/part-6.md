@@ -129,3 +129,13 @@ Let's add something interesting to our map:  We'll give our snake the ability to
       args.state.snake.y = 71
     end
 ```
+
+A tiny change to our wall drawing and...
+```ruby
+  (0..127).each do |x|
+    if x < 62 or x > 66
+      wall_coords << [x,0]
+      wall_coords << [x,71]
+    end
+  end
+```
