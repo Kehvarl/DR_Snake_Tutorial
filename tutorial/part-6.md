@@ -139,3 +139,5 @@ A tiny change to our wall drawing and...
     end
   end
 ```
+
+Now we can put gaps in our walls and our snake can pass through them.
