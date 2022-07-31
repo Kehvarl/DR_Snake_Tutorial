@@ -48,6 +48,7 @@ def draw_array(arr, color)
 end
 
 def initialize args
+  args.state.score ||= 0
   args.state.update ||=1
   args.state.snake.length ||= 1
   args.state.snake.body ||= [[64,64]]
@@ -135,6 +136,7 @@ def tick args
                          args.state.snake.body)
   if hit
     if hit == :pickup
+      args.state.score += 10
       args.state.snake.length += 1
       args.state.pickup_coords.delete([args.state.snake.x, args.state.snake.y])
       args.state.pickup_coords << make_pickup(args)
