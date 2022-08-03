@@ -13,6 +13,6 @@ Now we can update it!  For example, every time we grab a pickup let's add 10 poi
     if hit == :pickup
       args.state.score += 10
       ...
-
-
 ```
+
+We could even display our score.  Either in a score box at the top of our screen, or as a number that follow the head of our snake around, or a myriad other solutions depending on our whim.
