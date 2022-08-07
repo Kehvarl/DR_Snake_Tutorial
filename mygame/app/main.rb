@@ -42,7 +42,7 @@ end
 def draw_array(arr, color)
   out = []
   arr.each do |e|
-    out << {x: e[0]*10, y: e[1]*10, w:10, h:10, **color}
+    out << {x: e[0]*10, y: e[1]*9, w:10, h:9, **color}
   end
   out
 end
@@ -106,7 +106,7 @@ def render args
   args.outputs.solids << args.state.obstacles
   args.outputs.solids << draw_array(args.state.pickup_coords, {r: 0, g: 0, b: 255})
   args.outputs.solids << draw_array(args.state.snake.body, {r: 0, g: 128, b: 0})
-  args.outputs.solids  << {x: args.state.snake.x*10, y:args.state.snake.y*10, w:10, h:10, r:0, g:255, b:0}
+  args.outputs.solids  << {x: args.state.snake.x*10, y:args.state.snake.y*9, w:10, h:9, r:0, g:255, b:0}
   args.outputs.labels << {x: 0, y: 720, text: args.state.score, r: 255, g: 255, b: 255}
 end
 
