@@ -107,7 +107,9 @@ def render args
   args.outputs.solids << draw_array(args.state.pickup_coords, {r: 0, g: 0, b: 255})
   args.outputs.solids << draw_array(args.state.snake.body, {r: 0, g: 128, b: 0})
   args.outputs.solids  << {x: args.state.snake.x*10, y:args.state.snake.y*9, w:10, h:9, r:0, g:255, b:0}
-  args.outputs.labels << {x: 0, y: 720, text: args.state.score, r: 255, g: 255, b: 255}
+  args.outputs.solids << {x: 0, y: 649, w: 1280, h: 71, r: 0, g: 255, b: 255}
+  args.outputs.solids << {x: 10, y: 659, w: 1260, h: 51, r: 0, g: 0, b: 0}
+  args.outputs.labels << {x: 40, y: 705, size_enum: 12, text: args.state.score, r: 0, g: 255, b: 255}
 end
 
 def tick args

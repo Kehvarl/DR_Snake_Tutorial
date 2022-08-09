@@ -41,3 +41,10 @@ Speaking of that "almost all", we do need one more change.  Over in our `render`
 args.outputs.solids  << {x: args.state.snake.x*10, y:args.state.snake.y*9, w:10, h:9, r:0, g:255, b:0}
 ```
 Done.
+
+Now let's jazz up that score.  We'll draw a box with the border color we want, and a second one in black.  This is one method to generate a thicker border than a single pixel.
+```ruby
+  args.outputs.solids << {x: 0, y: 649, w: 1280, h: 71, r: 0, g: 255, b: 255}
+args.outputs.solids << {x: 10, y: 659, w: 1260, h: 51, r: 0, g: 0, b: 0}
+args.outputs.labels << {x: 40, y: 705, size_enum: 12, text: args.state.score, r: 0, g: 255, b: 255}
+```
