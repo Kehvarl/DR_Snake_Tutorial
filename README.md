@@ -11,4 +11,5 @@ A Snake Game tutorial in Dragon Ruby
 * ![Part 5 - Something To Eat](./tutorial/part-5.md)
 * ![Part 6 - A Growing Snake](./tutorial/part-6.md)
 * ![Part 7 - Keeping Score](./tutorial/part-7.md)
-* ![Part 8 - Publishing](./tutorial/part-8.md)
+* ![Part 8 - More Mechanics](./tutorial/part-8.md)
+* ![Part 9 - Publishing](./tutorial/part-9.md)
