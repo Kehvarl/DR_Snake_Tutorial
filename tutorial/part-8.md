@@ -10,4 +10,4 @@ Let's review those:
 * Challenge - How can we control and scale the difficulty of our game?
 * Interaction - Our snake already responds to our input, and the game world responds to the snake in various ways.  Can we play with that?
 
-
+Clearly we need to focus on `Challenge`, and `Goals`.
