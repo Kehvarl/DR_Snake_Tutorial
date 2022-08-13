@@ -11,3 +11,14 @@ Let's review those:
 * Interaction - Our snake already responds to our input, and the game world responds to the snake in various ways.  Can we play with that?
 
 Clearly we need to focus on `Challenge`, and `Goals`.
+
+## Challenge
+There are many ways we could adjust the difficulty of our little snake game:
+* Make more things dangerous
+  * Instead of bouncing off walls, they injure our snake or end the game
+  * Obstacles injure our snake, end the game, or reduce score
+  * Our snake striking itself causes injury or ends the game
+  * Our snake speeds up over time
+  * More obstacles appear over time
+  * We add an enemy
+And with some work we could come up with many more.
