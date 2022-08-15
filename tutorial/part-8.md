@@ -102,3 +102,4 @@ Goals are possibly one of the most critical things.  They take our project from 
 Some of these ideas can be mixed together, others change the nature of our game in one way or another.  Our task is to pick one or more goals that will leave us with something that's fun to play.  For the purposes of this tutorial , we'll go with a timer.
 
 #### Game Timer
+We'll start by implementing a simple 20 second countdown which we reset every time the snake eats something...
