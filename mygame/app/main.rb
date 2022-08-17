@@ -127,6 +127,11 @@ def render args
   args.outputs.solids << {x: 0, y: 649, w: 1280, h: 71, r: 0, g: 255, b: 255}
   args.outputs.solids << {x: 10, y: 659, w: 1260, h: 51, r: 0, g: 0, b: 0}
   args.outputs.labels << {x: 40, y: 705, size_enum: 12, text: args.state.score, r: 0, g: 255, b: 255}
+  args.outputs.labels << {x: 640, y: 705, size_enum: 12, text: args.state.countdown - time_ms(), r: 0, g: 255, b: 255}
+end
+
+def time_ms
+  (Time.now().to_f * 1000.0).to_i
 end
 
 def initialize args
@@ -143,6 +148,7 @@ def initialize args
   args.state.pickup_coords ||= [make_pickup(args), make_pickup(args)]
   args.state.walls ||= draw_array(args.state.walls_coords, {r:255, g:0, b:0})
   args.state.obstacles ||= draw_array(args.state.obstacle_coords, {r: 128, g: 0, b: 128})
+  args.state.countdown = time_ms() + 20000
 end
 
 def tick args
