@@ -103,3 +103,4 @@ Some of these ideas can be mixed together, others change the nature of our game 
 
 #### Game Timer
 We'll start by implementing a simple 20 second countdown which we reset every time the snake eats something...
+
