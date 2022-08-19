@@ -104,3 +104,23 @@ Some of these ideas can be mixed together, others change the nature of our game 
 #### Game Timer
 We'll start by implementing a simple 20 second countdown which we reset every time the snake eats something...
 
+Or rather, we'll start by getting the current time in ms so we can work with that:
+```ruby
+def time_ms
+  (Time.now().to_f * 1000.0).to_i
+end
+```
+Any time we call this function it will grab the current time in milliseconds, allowing us to do some comparisons.
+
+If we add a line to our initialization routine like so:
+```ruby
+  args.state.countdown = time_ms() + 20000
+```
+We can store a time 20 seconds in the future in our game state.
+
+To show that time drawing nearer, a quick change to our draw routine:
+```ruby
+args.outputs.labels << {x: 640, y: 705, size_enum: 12, text: (args.state.countdown - time_ms())/1000, r: 0, g: 255, b: 255}
+```
+
+
