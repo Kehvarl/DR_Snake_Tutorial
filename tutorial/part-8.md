@@ -123,4 +123,19 @@ To show that time drawing nearer, a quick change to our draw routine:
 args.outputs.labels << {x: 640, y: 705, size_enum: 12, text: (args.state.countdown - time_ms())/1000, r: 0, g: 255, b: 255}
 ```
 
+One more quick tweak so we show a somewhat less frantic countdown, we'll format our timer with 1 decimal place.
+```ruby
+  args.outputs.labels << {x: 640, y: 705, size_enum: 12, text: '%.1f' % ((args.state.countdown - time_ms())/1000), r: 0, g: 255, b: 255}
+```
+
+Now that we have our countdown displaying, let's reset it to 20 seconds every time the snake eats something.   We just modify our collision handler, like so:
+```ruby
+def handle_collision (hit, args)
+  if hit == :pickup
+    args.state.score += 10
+    args.state.snake.length += 1
+    args.state.pickup_coords.delete([args.state.snake.x, args.state.snake.y])
+    args.state.pickup_coords << make_pickup(args)
+    args.state.countdown = time_ms() + 20000
+```
 
