@@ -106,6 +106,7 @@ def handle_collision (hit, args)
     args.state.snake.length += 1
     args.state.pickup_coords.delete([args.state.snake.x, args.state.snake.y])
     args.state.pickup_coords << make_pickup(args)
+    args.state.countdown = time_ms() + 20000
   elsif hit == :body
     # game over
   else
@@ -127,7 +128,7 @@ def render args
   args.outputs.solids << {x: 0, y: 649, w: 1280, h: 71, r: 0, g: 255, b: 255}
   args.outputs.solids << {x: 10, y: 659, w: 1260, h: 51, r: 0, g: 0, b: 0}
   args.outputs.labels << {x: 40, y: 705, size_enum: 12, text: args.state.score, r: 0, g: 255, b: 255}
-  args.outputs.labels << {x: 640, y: 705, size_enum: 12, text: (args.state.countdown - time_ms())/1000, r: 0, g: 255, b: 255}
+  args.outputs.labels << {x: 640, y: 705, size_enum: 12, text: '%.1f' % ((args.state.countdown - time_ms())/1000), r: 0, g: 255, b: 255}
 end
 
 def time_ms
