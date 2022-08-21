@@ -136,6 +136,7 @@ def time_ms
 end
 
 def initialize args
+  args.state.state ||= :running
   args.state.score ||= 0
   args.state.update ||=1
   args.state.snake.length ||= 1
@@ -152,7 +153,7 @@ def initialize args
   args.state.countdown = time_ms() + 20000
 end
 
-def tick args
+def running_tick args
   if args.state.tick_count <= 1
     initialize args
   end
@@ -170,4 +171,19 @@ def tick args
     handle_collision(hit, args)
   end
   render args
+end
+
+def game_over_tick args
+  render args
+  args.outputs.solids << {x: 360, y: 310, w: 560, h: 80, r: 255, g: 255, b: 255}
+  args.outputs.solids << {x: 370, y: 320, w: 540, h: 60, r: 0, g: 0, b: 0}
+  args.outputs.labels << {x: 490, y: 370, size_enum: 12, text: "G A M E  O V E R", r: 255, g: 255, b: 255}
+end
+
+def tick args
+  if args.state.state == :running or args.state.tick_count <= 1
+    running_tick args
+  elsif args.state.state == :game_over
+    game_over_tick args
+  end
 end
