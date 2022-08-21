@@ -137,5 +137,21 @@ def handle_collision (hit, args)
     args.state.pickup_coords.delete([args.state.snake.x, args.state.snake.y])
     args.state.pickup_coords << make_pickup(args)
     args.state.countdown = time_ms() + 20000
+...
 ```
 
+We also need to check if the value has reached 0.  However, if we do that in our update, then display the timer after the update, we might end up in a case where we show that the player is out of time even though they weren't when we checked.  The smart way to avoid that is to check once, and cache that check.  We'll do that in our tick:
+```ruby
+def tick args
+  if args.state.tick_count <= 1
+    initialize args
+  end
+
+  args.state.current_timer = (args.state.countdown - time_ms())/1000
+...
+```
+
+We're storing our value in the game state since we already pass that state around to all the places we need to check it.  Like our draw routine:
+```ruby
+  args.outputs.labels << {x: 640, y: 705, size_enum: 12, text: '%.1f' % args.state.current_timer, r: 0, g: 255, b: 255}
+```
