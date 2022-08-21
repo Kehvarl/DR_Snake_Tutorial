@@ -205,3 +205,26 @@ def tick args
 end
 ```
 
+This would work, but if we ever change our game state, the game will hang and won't respond to any inputs.  Let's add in a `game_over` state handler:
+
+```ruby
+def tick args
+  if args.state.state == :running
+    running_tick args
+  elsif args.state.state == :game_over
+    game_over_tick args
+  end
+end
+```
+Of course, we need that `game_over_tick` as well, so we'll create it:
+```ruby
+
+def game_over_tick args
+  render args
+  args.outputs.solids << {x: 360, y: 310, w: 560, h: 80, r: 255, g: 255, b: 255}
+  args.outputs.solids << {x: 370, y: 320, w: 540, h: 60, r: 0, g: 0, b: 0}
+  args.outputs.labels << {x: 490, y: 370, size_enum: 12, text: "G A M E  O V E R", r: 255, g: 255, b: 255}
+end
+```
+As you can see, we simply show the game itself and then draw a message over top of it.   Since this method never calls any of our updates, we don't have to worry about stuff moving or our counter appearing to continue. 
+
