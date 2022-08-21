@@ -128,7 +128,7 @@ def render args
   args.outputs.solids << {x: 0, y: 649, w: 1280, h: 71, r: 0, g: 255, b: 255}
   args.outputs.solids << {x: 10, y: 659, w: 1260, h: 51, r: 0, g: 0, b: 0}
   args.outputs.labels << {x: 40, y: 705, size_enum: 12, text: args.state.score, r: 0, g: 255, b: 255}
-  args.outputs.labels << {x: 640, y: 705, size_enum: 12, text: '%.1f' % ((args.state.countdown - time_ms())/1000), r: 0, g: 255, b: 255}
+  args.outputs.labels << {x: 640, y: 705, size_enum: 12, text: '%.1f' % args.state.current_timer, r: 0, g: 255, b: 255}
 end
 
 def time_ms
@@ -156,6 +156,8 @@ def tick args
   if args.state.tick_count <= 1
     initialize args
   end
+
+  args.state.current_timer = (args.state.countdown - time_ms())/1000
 
   handle_keys(args)
   update_snake args
