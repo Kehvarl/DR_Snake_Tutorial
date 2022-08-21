@@ -155,3 +155,53 @@ We're storing our value in the game state since we already pass that state aroun
 ```ruby
   args.outputs.labels << {x: 640, y: 705, size_enum: 12, text: '%.1f' % args.state.current_timer, r: 0, g: 255, b: 255}
 ```
+
+#### Game Over
+We have our countdown timer, we have walls, and we have obstacles.  Let's handle what we do if any of these potentially game-ending things come into effect.
+
+We'll start by tracking which state our game is in, from a short list:
+* running
+  * The game is running and we need to update the screen every frame
+* game_over
+  * The game is ended and we only need to make sure the game_over message is displayed
+* restart
+  * We want to start a new game, which means resetting all the variables and entering "running" state
+
+We'll set this up in our `initialize` method:
+```ruby
+def initialize args
+  args.state.state ||= :running
+```
+
+Our `tick` method can use the current state to decide what to do.  This means we probably want to move our current `tick` to something like `running_tick`  Like so:
+```ruby
+def running_tick args
+  if args.state.tick_count <= 1
+    initialize args
+  end
+
+  args.state.current_timer = (args.state.countdown - time_ms())/1000
+
+  handle_keys(args)
+  update_snake args
+  hit = check_collisions(args.state.snake.x, args.state.snake.y,
+                         args.state.walls_coords,
+                         args.state.obstacle_coords,
+                         args.state.pickup_coords,
+                         args.state.snake.body)
+  if hit
+    handle_collision(hit, args)
+  end
+  render args
+end
+```
+
+Then we create a new `tick` that calls out to what it needs to:
+```ruby
+def tick args
+  if args.state.state == :running
+    running_tick args
+  end
+end
+```
+

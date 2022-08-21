@@ -136,6 +136,7 @@ def time_ms
 end
 
 def initialize args
+  args.state.state ||= :running
   args.state.score ||= 0
   args.state.update ||=1
   args.state.snake.length ||= 1
@@ -152,7 +153,7 @@ def initialize args
   args.state.countdown = time_ms() + 20000
 end
 
-def tick args
+def running_tick args
   if args.state.tick_count <= 1
     initialize args
   end
@@ -170,4 +171,10 @@ def tick args
     handle_collision(hit, args)
   end
   render args
+end
+
+def tick args
+  if args.state.state == :running
+    running_tick args
+  end
 end
