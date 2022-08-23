@@ -228,3 +228,32 @@ end
 ```
 As you can see, we simply show the game itself and then draw a message over top of it.   Since this method never calls any of our updates, we don't have to worry about stuff moving or our counter appearing to continue. 
 
+#### A Brand New Game
+We aren't using our game-over state yet, but before we do let's do something about starting over.  We can make a couple of tweaks to our `game_over_tick` to display another message and watch for a keypress:
+```ruby
+def game_over_tick args
+  render args
+  args.outputs.solids << {x: 360, y: 310, w: 560, h: 80, r: 255, g: 255, b: 255}
+  args.outputs.solids << {x: 370, y: 320, w: 540, h: 60, r: 0, g: 0, b: 0}
+  args.outputs.labels << {x: 490, y: 370, size_enum: 12, text: "G A M E  O V E R", r: 255, g: 255, b: 255}
+  args.outputs.labels << {x: 455, y: 300, size_enum: 3, text: "Press Space To Start New Game", r: 255, g: 255, b: 255}
+  if args.inputs.keyboard.space
+    args.state.state = :restart
+  end
+end
+```
+
+And now a change to our `tick` to handle the :restart state:
+```ruby
+def tick args
+  if args.state.state == :running or args.state.tick_count <= 1
+    running_tick args
+  elsif args.state.state == :game_over
+    game_over_tick args
+  elsif args.state.state == :restart
+    initialize args
+    args.state.state = :running
+  end
+end
+```
+
