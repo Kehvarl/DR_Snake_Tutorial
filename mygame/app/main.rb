@@ -110,7 +110,7 @@ def handle_collision (hit, args)
   elsif hit == :body
     # game over
   else
-    # maybe game over?
+    args.state.state = :game_over
     args.state.snake.vx = -args.state.snake.vx
     args.state.snake.vy = -args.state.snake.vy
     args.state.snake.x += args.state.snake.vx
@@ -136,20 +136,20 @@ def time_ms
 end
 
 def initialize args
-  args.state.state ||= :running
-  args.state.score ||= 0
-  args.state.update ||=1
-  args.state.snake.length ||= 1
-  args.state.snake.body ||= [[64,64]]
-  args.state.snake.x ||= 64
-  args.state.snake.y ||= 64
-  args.state.snake.vx ||= 1
-  args.state.snake.vy ||= 0
-  args.state.walls_coords ||= make_wall_coords
-  args.state.obstacle_coords ||= make_obstacles
-  args.state.pickup_coords ||= [make_pickup(args), make_pickup(args)]
-  args.state.walls ||= draw_array(args.state.walls_coords, {r:255, g:0, b:0})
-  args.state.obstacles ||= draw_array(args.state.obstacle_coords, {r: 128, g: 0, b: 128})
+  args.state.state = :running
+  args.state.score = 0
+  args.state.update =1
+  args.state.snake.length = 1
+  args.state.snake.body = [[64,64]]
+  args.state.snake.x = 64
+  args.state.snake.y = 64
+  args.state.snake.vx = 1
+  args.state.snake.vy = 0
+  args.state.walls_coords = make_wall_coords
+  args.state.obstacle_coords = make_obstacles
+  args.state.pickup_coords = [make_pickup(args), make_pickup(args)]
+  args.state.walls = draw_array(args.state.walls_coords, {r:255, g:0, b:0})
+  args.state.obstacles = draw_array(args.state.obstacle_coords, {r: 128, g: 0, b: 128})
   args.state.countdown = time_ms() + 20000
 end
 

@@ -257,4 +257,41 @@ def tick args
 end
 ```
 
+Since we're calling our `initialize` function to perform our restart, we actually need to modify it.  We previously used `||=` when setting the initial variables so we only set them if they're not set.  However, we long ago modified our `tick` to only call `initialize` on frame 1.  So lets' make `initialize` reusable:
+```ruby
+def initialize args
+  args.state.state = :running
+  args.state.score = 0
+  args.state.update =1
+  args.state.snake.length = 1
+  args.state.snake.body = [[64,64]]
+  args.state.snake.x = 64
+  args.state.snake.y = 64
+  args.state.snake.vx = 1
+  args.state.snake.vy = 0
+  args.state.walls_coords = make_wall_coords
+  args.state.obstacle_coords = make_obstacles
+  args.state.pickup_coords = [make_pickup(args), make_pickup(args)]
+  args.state.walls = draw_array(args.state.walls_coords, {r:255, g:0, b:0})
+  args.state.obstacles = draw_array(args.state.obstacle_coords, {r: 128, g: 0, b: 128})
+  args.state.countdown = time_ms() + 20000
+end
+```
+
 #### Ending The Game
+Let's get into that :game_over state! Our `handle_state` routine has a couple of points where we could do something that would end our game, let's use one of them.  Every time we hit a wall, that's the end...
+```ruby
+def handle_collision (hit, args)
+  if hit == :pickup
+    args.state.score += 10
+    args.state.snake.length += 1
+    args.state.pickup_coords.delete([args.state.snake.x, args.state.snake.y])
+    args.state.pickup_coords << make_pickup(args)
+    args.state.countdown = time_ms() + 20000
+  elsif hit == :body
+    # game over
+  else
+    args.state.state = :game_over
+  end 
+end
+```
