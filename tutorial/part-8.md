@@ -101,7 +101,9 @@ Goals are possibly one of the most critical things.  They take our project from 
 
 Some of these ideas can be mixed together, others change the nature of our game in one way or another.  Our task is to pick one or more goals that will leave us with something that's fun to play.  For the purposes of this tutorial , we'll go with a timer.
 
-#### Game Timer
+## Implementing Changes
+
+### Game Timer
 We'll start by implementing a simple 20 second countdown which we reset every time the snake eats something...
 
 Or rather, we'll start by getting the current time in ms so we can work with that:
@@ -156,7 +158,7 @@ We're storing our value in the game state since we already pass that state aroun
   args.outputs.labels << {x: 640, y: 705, size_enum: 12, text: '%.1f' % args.state.current_timer, r: 0, g: 255, b: 255}
 ```
 
-#### Game Over
+### Game Over State
 We have our countdown timer, we have walls, and we have obstacles.  Let's handle what we do if any of these potentially game-ending things come into effect.
 
 We'll start by tracking which state our game is in, from a short list:
@@ -228,7 +230,7 @@ end
 ```
 As you can see, we simply show the game itself and then draw a message over top of it.   Since this method never calls any of our updates, we don't have to worry about stuff moving or our counter appearing to continue. 
 
-#### A Brand New Game
+### A Brand New Game
 We aren't using our game-over state yet, but before we do let's do something about starting over.  We can make a couple of tweaks to our `game_over_tick` to display another message and watch for a keypress:
 ```ruby
 def game_over_tick args
@@ -278,7 +280,7 @@ def initialize args
 end
 ```
 
-#### Ending The Game
+### Game Over Redux
 Let's get into that :game_over state! Our `handle_state` routine has a couple of points where we could do something that would end our game, let's use one of them.  Every time we hit a wall, that's the end...
 ```ruby
 def handle_collision (hit, args)
@@ -295,3 +297,8 @@ def handle_collision (hit, args)
   end 
 end
 ```
+
+We'll add the same state transition to our body-collision check for now, though some alternatives would be to allow body collisions, but cost points when you do it; or allow them but shrink the snake until you're not colliding.
+
+## Additional Thoughts
+We've added a few new game states, and ways to end the game with a countdown timer or collisions.  Further improvements could be gained by speeding up over time, adding enemies, changing levels to more complex mazes, or many other options.
