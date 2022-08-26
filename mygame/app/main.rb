@@ -108,7 +108,7 @@ def handle_collision (hit, args)
     args.state.pickup_coords << make_pickup(args)
     args.state.countdown = time_ms() + 20000
   elsif hit == :body
-    # game over
+    args.state.state = :game_over
   else
     args.state.state = :game_over
     args.state.snake.vx = -args.state.snake.vx
