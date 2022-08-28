@@ -1,6 +1,6 @@
 devid=kehvarl
 devtitle=Kehvarl
-gameid=DRSnakeTutorial
+gameid=dr-snake-tutorial
 gametitle=Dragon Ruby Snake Tutorial
 version=0.1
 #icon=metadata/icon.png
