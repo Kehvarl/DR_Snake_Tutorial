@@ -1,7 +1,11 @@
 # Part 0 - Setting Up
 
 ## Prior Knowledge
-This tutorial will attempt to be beginner friendly, but some experience with programming will help.  For the sake of simplicity, I will be using DragonRuby on Windows 10, but DragonRuby Game Toolkit is highly portable and the same instructions should run on multiple operating systems. 
+This tutorial will attempt to be beginner friendly, but some experience with programming will help.  For the sake of simplicity, I will be using DragonRuby on Windows 10, but DragonRuby Game Toolkit is highly portable and the same instructions should run on multiple operating systems.
+
+## Getting Help
+Throughout this guide we will frequently reference The Dragon Ruby Docs [http://docs.dragonruby.org/](http://docs.dragonruby.org/) as well as various other Ruby documentation sites.  We will make an effort to provide links to the various references we use. 
+Additonally, the Dragon Ruby Discord, an extremely helpful community, can be found at [http://discord.dragonruby.org](http://discord.dragonruby.org)
 
 ## Project Setup
 ### Download DragonRuby
