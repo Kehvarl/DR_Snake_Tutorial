@@ -1,5 +1,5 @@
 # Part 9 - Publishing
-Dragon Ruby makes it extremely easy to release your game for a variety of platforms.  The dragonruby-publish executable can build binaries for Web, Windows, Linux, Raspberry Pi, Android, and Ios if everything is set up properly.
+Dragon Ruby makes it extremely easy to release your game for a variety of platforms.  The dragonruby-publish executable can build binaries for Web, Windows, Linux, and Raspberry Pi.  If you have a Pro license you can also package your game for Android, or even iOS if you also have a Mac.
 
 ## Your Game's Metadata
 Up to now we've done all our work in the `mygame/app/main.rb` file.  Now we'll work with one of the other files that DragonRuby uses, it can be found in `mygame\metadata\game_metadata.txt`
