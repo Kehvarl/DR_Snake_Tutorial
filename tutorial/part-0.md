@@ -86,3 +86,6 @@ Let's make a change and see it in action.
   ![Dragon Ruby Hello](../tutorial/DRGTK_HelloDR.png?raw=true "Hello DragonRuby")
 
 If you've reached this point with me, then celebrate your success!  Next up we'll start making a game using DragonRuby.
+
+# Next
+![Part 1 - Drawing The Background](./tutorial/part-1.md)
