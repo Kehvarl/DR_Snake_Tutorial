@@ -135,3 +135,10 @@ args.state.update = 3 # 20 FPS
 ```
 
 Now we're updatign the snake 20 times per second, and it's much easier to keep track of.  As we move up in level, we could even adjust that by storing our max count in the game state and reducing it as we progress.
+
+
+# Previous
+![Part 2 - Drawing The Snake](./tutorial/part-2.md)
+
+# Next
+![Part 3 - Keyboard Input](./tutorial/part-3.md)
