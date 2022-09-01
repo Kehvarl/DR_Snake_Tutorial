@@ -360,8 +360,8 @@ Basically we draw 2 stripes of boxes: one across the top and one across the bott
 
 ![Dragon Ruby Obstacle Border](../tutorial/DRGTK_obstacle_border.png?raw=true "Border Walls")
 
-Previous
+# Previous
 ![Part 0 - Setting Up](./tutorial/part-0.md)
 
-Next
+# Next
 ![Part 2 - Drawing The Snake](./tutorial/part-2.md)
