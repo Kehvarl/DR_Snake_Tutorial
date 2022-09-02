@@ -92,3 +92,8 @@ end
 References
 * [DragonRuby Docs: Inputs](http://docs.dragonruby.org/#---args-inputs-)
 
+# Previous
+![Part 3 - Keyboard Input](./tutorial/part-3.md)
+
+# Next
+![Part 4 - Collisions](./tutorial/part-4.md)
