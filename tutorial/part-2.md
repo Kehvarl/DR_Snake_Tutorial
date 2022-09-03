@@ -138,7 +138,7 @@ Now we're updatign the snake 20 times per second, and it's much easier to keep t
 
 
 # Previous
-![Part 2 - Drawing The Snake](./tutorial/part-2.md)
+![Part 1 - Drawing The Background](./tutorial/part-1.md)
 
 # Next
 ![Part 3 - Keyboard Input](./tutorial/part-3.md)
