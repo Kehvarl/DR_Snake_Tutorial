@@ -143,3 +143,10 @@ One little tweak to our collision handling so we can do cool stuff later and:
     args.state.snake.y += 2*args.state.snake.vy
   end
 ```
+
+
+# Previous
+![Part 3 - Keyboard Input](./tutorial/part-3.md)
+
+# Next
+![Part 5 - Something To Eat](./tutorial/part-5.md)
