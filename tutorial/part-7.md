@@ -50,7 +50,7 @@ args.outputs.labels << {x: 40, y: 705, size_enum: 12, text: args.state.score, r:
 ```
 
 # Previous
-![Part 6 - A Growing Snake](./tutorial/part-6.md)
+* ![Part 6 - A Growing Snake](./tutorial/part-6.md)
 
 
 # Next
