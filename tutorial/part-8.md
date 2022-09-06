@@ -302,3 +302,10 @@ We'll add the same state transition to our body-collision check for now, though 
 
 ## Additional Thoughts
 We've added a few new game states, and ways to end the game with a countdown timer or collisions.  Further improvements could be gained by speeding up over time, adding enemies, changing levels to more complex mazes, or many other options.
+
+
+# Previous
+![Part 7 - Keeping Score](./tutorial/part-7.md)
+
+# Next
+![Part 9 - Publishing](./tutorial/part-9.md)
