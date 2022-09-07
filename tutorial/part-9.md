@@ -75,4 +75,8 @@ In order to make your game public so other people can find it you will want to c
 If you've been following along then you have now built a simple snake game, thought about how to improve it, and published it so other people can play it!  The best way to cement this knowledge is to keep doing it:  Add on to your game and publish updates, build a new game and publish it, join a game jam or three.
 
 ## One Final Note
-The Dragon Ruby Game Tool Kit (DRGTK) community on Discord would love to see your project and progress!  If you're already a member, post your game in the `show-and-tell` channel, and ask questions on how to improve things. 
+The Dragon Ruby Game Tool Kit (DRGTK) community on Discord would love to see your project and progress!  If you're already a member, post your game in the `show-and-tell` channel, and ask questions on how to improve things.
+
+
+# Previous
+![Part 8 - More Mechanics](./tutorial/part-8.md)
