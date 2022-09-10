@@ -92,6 +92,7 @@ end
 References
 * [DragonRuby Docs: Inputs](http://docs.dragonruby.org/#---args-inputs-)
 
+
 # Previous
 ![Part 2 - Drawing The Snake](./tutorial/part-2.md)
 

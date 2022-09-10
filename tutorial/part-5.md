@@ -143,6 +143,7 @@ We can demonstrate how this works by initializing 2 pickups instead of one...
 args.state.pickup_coords ||= [make_pickup(args), make_pickup(args)]
 ```
 
+
 # Previous
 ![Part 4 - Collisions](./tutorial/part-4.md)
 

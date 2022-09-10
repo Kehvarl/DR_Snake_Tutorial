@@ -142,6 +142,7 @@ A tiny change to our wall drawing and...
 
 Now we can put gaps in our walls and our snake can pass through them.
 
+
 # Previous
 [Part 5 - Something To Eat](./tutorial/part-5.md)
 
