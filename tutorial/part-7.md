@@ -49,9 +49,9 @@ args.outputs.solids << {x: 10, y: 659, w: 1260, h: 51, r: 0, g: 0, b: 0}
 args.outputs.labels << {x: 40, y: 705, size_enum: 12, text: args.state.score, r: 0, g: 255, b: 255}
 ```
 
+
 # Previous
 * ![Part 6 - A Growing Snake](./tutorial/part-6.md)
-
 
 # Next
 * ![Part 8 - More Mechanics](./tutorial/part-8.md)
