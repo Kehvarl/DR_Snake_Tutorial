@@ -93,12 +93,16 @@ end
 ```
 
 Then we can modify our state to get rid of that extraneous `args.state.pickups` since we no longer use it.
+Doing this actually causes an issue with DragonRuby 6.  Because we're trying to check for collisions before 
+we even define the pickups array, it throws an error. We'll fix that by creating the array empty, then filling
+it in with something.
 
 ```ruby
 def initialize args
   args.state.update ||=1
   args.state.walls_coords ||= make_wall_coords
   args.state.obstacle_coords ||= make_obstacles
+  args.state.pickup_coords = []
   args.state.pickup_coords ||= [make_pickup(args)]
   args.state.walls ||= draw_array(args.state.walls_coords, {r:255, g:0, b:0})
   args.state.obstacles ||= draw_array(args.state.obstacle_coords, {r: 128, g: 0, b: 128})

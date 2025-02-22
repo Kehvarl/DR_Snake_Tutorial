@@ -273,6 +273,7 @@ def initialize args
   args.state.snake.vy = 0
   args.state.walls_coords = make_wall_coords
   args.state.obstacle_coords = make_obstacles
+  args.state.pickup_coords = []
   args.state.pickup_coords = [make_pickup(args), make_pickup(args)]
   args.state.walls = draw_array(args.state.walls_coords, {r:255, g:0, b:0})
   args.state.obstacles = draw_array(args.state.obstacle_coords, {r: 128, g: 0, b: 128})
